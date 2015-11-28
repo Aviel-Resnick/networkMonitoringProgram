@@ -1,7 +1,7 @@
 
-Starting Nmap 6.49BETA6 ( https://nmap.org ) at 2015-11-26 18:17 Eastern Standard Time
+Starting Nmap 6.49BETA6 ( https://nmap.org ) at 2015-11-27 13:22 Eastern Standard Time
 Nmap scan report for Wireless_Broadband_Router.home (192.168.1.1)
-Host is up (0.0047s latency).
+Host is up (0.031s latency).
 Not shown: 993 closed ports
 PORT     STATE SERVICE
 23/tcp   open  telnet
@@ -13,31 +13,27 @@ PORT     STATE SERVICE
 8443/tcp open  https-alt
 MAC Address: 00:7F:28:45:33:8E (Actiontec Electronics)
 
-Nmap scan report for familyroom.home (192.168.1.4)
-Host is up (0.0028s latency).
-Not shown: 996 filtered ports
-PORT     STATE  SERVICE
-139/tcp  open   netbios-ssn
-445/tcp  open   microsoft-ds
-2869/tcp closed icslap
-2968/tcp open   enpp
-MAC Address: 00:1D:09:99:CC:04 (Dell)
+Nmap scan report for android-c4092dbf13905f94.home (192.168.1.2)
+Host is up (0.052s latency).
+All 1000 scanned ports on android-c4092dbf13905f94.home (192.168.1.2) are closed
+MAC Address: 10:A5:D0:75:5B:CA (Murata Manufacturing)
 
 Nmap scan report for User-PC.home (192.168.1.5)
-Host is up (0.020s latency).
-Not shown: 993 filtered ports
+Host is up (0.033s latency).
+Not shown: 992 filtered ports
 PORT      STATE SERVICE
 135/tcp   open  msrpc
 139/tcp   open  netbios-ssn
 445/tcp   open  microsoft-ds
 554/tcp   open  rtsp
 2869/tcp  open  icslap
+2968/tcp  open  enpp
 5357/tcp  open  wsdapi
 10243/tcp open  unknown
 MAC Address: 00:24:D7:9D:AA:8C (Intel Corporate)
 
 Nmap scan report for android-f36b7f32f66eaa5c.home (192.168.1.6)
-Host is up (0.0036s latency).
+Host is up (0.0094s latency).
 All 1000 scanned ports on android-f36b7f32f66eaa5c.home (192.168.1.6) are closed
 MAC Address: CC:07:AB:CD:47:E9 (Samsung Electronics)
 
@@ -1046,4 +1042,4 @@ PORT      STATE   SERVICE
 65129/tcp unknown unknown
 65389/tcp unknown unknown
 
-Nmap done: 20 IP addresses (5 hosts up) scanned in 13.11 seconds
+Nmap done: 20 IP addresses (5 hosts up) scanned in 13.92 seconds

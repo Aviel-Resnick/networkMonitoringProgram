@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Network_Monitoring_Program
 {
@@ -16,9 +17,37 @@ namespace Network_Monitoring_Program
         public Form1()
         {
             InitializeComponent();
+            substring_split();
             InitTimer();
             Main();
 
+        }
+
+        public void substring_split()
+        {
+            int LINES = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\arp_dump.txt").Count() - 1;
+            string[] DATA_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\arp_dump.txt");
+
+            System.IO.File.WriteAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Empty);
+
+            for (int i = 0; i < LINES; i++)
+            {
+                string LINE = DATA_ARRAY[i];
+                int LINE_LENGTH = LINE.Count();
+
+                if (LINE_LENGTH > 4)
+                {
+                    string CHAR = LINE.Substring(0, 5);
+
+                    bool CORRECT_LINE = CHAR.Equals("  192", StringComparison.Ordinal);
+
+                    if (CORRECT_LINE == true)
+                    {
+                        string MAC = LINE.Substring(24, 17);
+                        System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
+                    }
+                }
+            }
         }
 
         public void InitTimer()
@@ -83,7 +112,7 @@ namespace Network_Monitoring_Program
 
                 if (intrusion == false)
                 {
-                    label2.Text = "You're safe for now!";
+                    label2.Text = "No intrusion detected";
                 }
             }
         }
