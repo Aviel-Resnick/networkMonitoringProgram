@@ -17,10 +17,27 @@ namespace Network_Monitoring_Program
         public Form1()
         {
             InitializeComponent();
-            substring_split();
+            //arp_dump();
+            //substring_split();
             InitTimer();
-            Main();
+            //Main();
 
+        }
+
+        public void arp_dump()
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Control.bat";
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
+        }
+
+        public static String GetTimestamp(DateTime value)
+        {
+            return value.ToString("MM/dd/yyyy HH:mm.ss");
         }
 
         public void substring_split()
@@ -29,6 +46,10 @@ namespace Network_Monitoring_Program
             string[] DATA_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\arp_dump.txt");
 
             System.IO.File.WriteAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Empty);
+
+            String timestamp = GetTimestamp(DateTime.Now);
+            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", timestamp);
+            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
 
             for (int i = 0; i < LINES; i++)
             {
@@ -45,24 +66,46 @@ namespace Network_Monitoring_Program
                     {
                         string MAC = LINE.Substring(24, 17);
                         System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
+                        System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
                     }
                 }
             }
+
+            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
+
         }
+
+
 
         public void InitTimer()
         {
             timer1 = new Timer();
             timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = 100;
+            timer1.Interval = 2000;
             timer1.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            bool is_open = false;
+
             MACS_LIST.Items.Clear();
-            MACS_LIST.Text = "MAC Addresses of Connected Users";
-            Main();
+
+            is_open = true;
+            arp_dump();
+            is_open = false;
+
+            if (is_open == false)
+            {
+                is_open = true;
+                substring_split();
+                is_open = false;
+            }
+
+            if (is_open == false)
+            {
+                Main();
+            }
         }
 
         public void Main()
@@ -106,12 +149,16 @@ namespace Network_Monitoring_Program
                 }
 
                 if (intrusion == true)
-                { 
+                {
+                    label2.Left = 51;
+                    label2.ForeColor = System.Drawing.Color.Red;
                     label2.Text = "Intrusion detected";
                 }
 
                 if (intrusion == false)
                 {
+                    label2.Left = 38;
+                    label2.ForeColor = System.Drawing.Color.Blue;
                     label2.Text = "No intrusion detected";
                 }
             }
@@ -132,6 +179,11 @@ namespace Network_Monitoring_Program
                 ALLOWED_MACS_LIST.Items.Add(New_User);
             }
             
+        }
+
+        private void History_Button_Click(object sender, EventArgs e)
+        {
+            Process.Start("notepad.exe", "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Data\\Refined\\History.txt");
         }
 
     }
