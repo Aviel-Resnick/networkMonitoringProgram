@@ -17,10 +17,8 @@ namespace Network_Monitoring_Program
         public Form1()
         {
             InitializeComponent();
-            //arp_dump();
-            //substring_split();
+            this.Size = new Size(309, 286);
             InitTimer();
-            //Main();
 
         }
 
@@ -32,7 +30,6 @@ namespace Network_Monitoring_Program
             startInfo.FileName = "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Control.bat";
             process.StartInfo = startInfo;
             process.Start();
-            process.WaitForExit();
         }
 
         public static String GetTimestamp(DateTime value)
@@ -75,8 +72,6 @@ namespace Network_Monitoring_Program
 
         }
 
-
-
         public void InitTimer()
         {
             timer1 = new Timer();
@@ -90,6 +85,7 @@ namespace Network_Monitoring_Program
             bool is_open = false;
 
             MACS_LIST.Items.Clear();
+            ALLOWED_MACS_LIST.Items.Clear();
 
             is_open = true;
             arp_dump();
@@ -153,6 +149,16 @@ namespace Network_Monitoring_Program
                     label2.Left = 51;
                     label2.ForeColor = System.Drawing.Color.Red;
                     label2.Text = "Intrusion detected";
+
+                    this.Size = new Size(309, 340);
+                    Intrusion_Info.Visible = true;
+                    Intruder_Mac.Visible = true;
+                    Add_To_Regestered.Visible = true;
+                    Shutdown.Visible = true;
+
+                    Intruder_Mac.Text = CONNECTED_MAC;
+
+                    break;
                 }
 
                 if (intrusion == false)
@@ -160,6 +166,12 @@ namespace Network_Monitoring_Program
                     label2.Left = 38;
                     label2.ForeColor = System.Drawing.Color.Blue;
                     label2.Text = "No intrusion detected";
+
+                    this.Size = new Size(309, 286);
+                    Intrusion_Info.Visible = false;
+                    Intruder_Mac.Visible = false;
+                    Add_To_Regestered.Visible = false;
+                    Shutdown.Visible = false;
                 }
             }
         }
@@ -186,5 +198,20 @@ namespace Network_Monitoring_Program
             Process.Start("notepad.exe", "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Data\\Refined\\History.txt");
         }
 
+        public void Add_To_Regestered_Click(object sender, EventArgs e)
+        {
+            string CONNECTED_MAC = Intruder_Mac.Text;
+
+            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt", string.Format("{0}{1}", CONNECTED_MAC, Environment.NewLine));
+            ALLOWED_MACS_LIST.Items.Add(CONNECTED_MAC);
+        }
+
+        private void Shutdown_Click(object sender, EventArgs e)
+        {
+            var shutdown = new ProcessStartInfo("shutdown", "/s /t 0");
+            shutdown.CreateNoWindow = true;
+            shutdown.UseShellExecute = false;
+            Process.Start(shutdown);
+        }
     }
 }
