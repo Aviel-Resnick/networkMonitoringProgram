@@ -19,7 +19,6 @@ namespace Network_Monitoring_Program
             InitializeComponent();
             this.Size = new Size(309, 286);
             InitTimer();
-
         }
 
         public void arp_dump()
