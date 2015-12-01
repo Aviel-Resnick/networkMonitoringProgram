@@ -14,9 +14,11 @@ namespace Network_Monitoring_Program
 {
     public partial class Form1 : Form
     {
+        // Initialization
         public Form1()
         {
             InitializeComponent();
+            // Screen Size (Default)
             this.Size = new Size(309, 286);
             InitTimer();
         }
@@ -73,6 +75,7 @@ namespace Network_Monitoring_Program
 
         public void InitTimer()
         {
+            // Every 2 Seconds (2000 Milliseconds) call timer1_Tick
             timer1 = new Timer();
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 2000;
@@ -81,22 +84,29 @@ namespace Network_Monitoring_Program
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // is_open is used to prevent overlapping between arp_dump, substring_split(), and Main()
             bool is_open = false;
-
+            
+            // MACS_LIST and ALLOWED_MACS_LIST are modified dropdown boxes used to present information to the user
+            // Clearing is required for showing real-time data
             MACS_LIST.Items.Clear();
             ALLOWED_MACS_LIST.Items.Clear();
-
+            
+            // While arp_dump is using files that substring_split() and Main() require is_open is true
             is_open = true;
             arp_dump();
             is_open = false;
-
+            
+            // If is_open is false, meaning none of the files are being used, substring_split can refine the raw data from arp_dump
+            // without risk of overlapping and crashing the program.
             if (is_open == false)
             {
                 is_open = true;
                 substring_split();
                 is_open = false;
             }
-
+            
+            // The same bool based system is applied to the transition from substring_split to Main()
             if (is_open == false)
             {
                 Main();
@@ -105,11 +115,13 @@ namespace Network_Monitoring_Program
 
         public void Main()
         {
+            // Read lines from MACS.txt (a refined list of connected users) and Allowed_Users.txt (Self-Explanatory) and store them in arrays 
             int CONNECTED_MAC_COUNT = System.IO.File.ReadLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt").Count();
             int ALLOWED_MAC_COUNT = System.IO.File.ReadLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt").Count();
             string[] MACS_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt");
             string[] ALLOWED_MACS_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt");
-
+            
+            // Read each line of MACS_ARRAY and add each item to MACS_LIST (dropdown menu)
             for (int i = 0; i < CONNECTED_MAC_COUNT; i++)
             {
                 if (!MACS_LIST.Items.Contains(MACS_ARRAY[i]))
