@@ -40,35 +40,42 @@ namespace Network_Monitoring_Program
 
         public void substring_split()
         {
+            // Data Collection
             int LINES = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\arp_dump.txt").Count() - 1;
             string[] DATA_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\arp_dump.txt");
-
+            
+            // Clears the exisiting file
             System.IO.File.WriteAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Empty);
-
+            
+            // Timestamp for History
             String timestamp = GetTimestamp(DateTime.Now);
             System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", timestamp);
             System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
-
+            
+            // For every line in arp_dump.txt
             for (int i = 0; i < LINES; i++)
             {
                 string LINE = DATA_ARRAY[i];
                 int LINE_LENGTH = LINE.Count();
-
+                // Verify that the line is greater than 4 characters
                 if (LINE_LENGTH > 4)
-                {
+                {   
+                    // Use substrings to identify the lines with the MAC address by checking the structure
                     string CHAR = LINE.Substring(0, 5);
 
                     bool CORRECT_LINE = CHAR.Equals("  192", StringComparison.Ordinal);
-
+                    
+                    // For correct lines collect the MAC address and store the string
                     if (CORRECT_LINE == true)
                     {
                         string MAC = LINE.Substring(24, 17);
+                        // Append the MAC address to MACS.txt and History.txt
                         System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
                         System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
                     }
                 }
             }
-
+            
             System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
 
         }
