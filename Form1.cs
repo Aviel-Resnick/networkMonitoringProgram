@@ -136,7 +136,8 @@ namespace Network_Monitoring_Program
                     MACS_LIST.Items.Add(MACS_ARRAY[i]);
                 }
             }
-
+            
+            // Read each line of ALLOWED_MACS_ARRAY and add each item to ALLOWED_MACS_LIST (dropdown menu)
             for (int x = 0; x < ALLOWED_MAC_COUNT; x++)
             {
                 if (!ALLOWED_MACS_LIST.Items.Contains(ALLOWED_MACS_ARRAY[x]))
@@ -145,8 +146,8 @@ namespace Network_Monitoring_Program
                 }
             }
           
-            // Cross
-
+            // For every connected device compare the MAC with every MAC in Allowed_MACS_ARRAY
+            // If during any iteration a MAC is identified as true, break out of the loop
             for (int y = 0; y < CONNECTED_MAC_COUNT; y++)
             {
                 string CONNECTED_MAC = MACS_ARRAY[y];
