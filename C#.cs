@@ -180,12 +180,12 @@ namespace Network_Monitoring_Program
                     Add_To_Regestered.Visible = true;
                     Shutdown.Visible = true;
                     
-                    // SHow the user the MAC address of the "intruder"
+                    // Show the user the MAC address of the possible intruder
                     Intruder_Mac.Text = CONNECTED_MAC;
-
                     break;
                 }
-
+                
+                // If there is no intrusions reset to the defualt look
                 if (intrusion == false)
                 {
                     label2.Left = 38;
@@ -208,7 +208,8 @@ namespace Network_Monitoring_Program
         private void Submit_Button_Click(object sender, EventArgs e)
         {
             string New_User = New_User_TextBox.Text;
-
+            
+            // Add a user to regestered users, as well as the dropdown menu, if the MAC in the input field is not already on the list
             if (!ALLOWED_MACS_LIST.Items.Contains(New_User))
             {
                 System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt", string.Format("{0}{1}", New_User, Environment.NewLine));
@@ -220,7 +221,8 @@ namespace Network_Monitoring_Program
         {
             Process.Start("notepad.exe", "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Data\\Refined\\History.txt");
         }
-
+        
+        // If the user selects to add the possible intruder to the regestered users list, proccede similarly to adding a new user
         public void Add_To_Regestered_Click(object sender, EventArgs e)
         {
             string CONNECTED_MAC = Intruder_Mac.Text;
@@ -230,6 +232,8 @@ namespace Network_Monitoring_Program
         }
 
         private void Shutdown_Click(object sender, EventArgs e)
+        
+        // If the user selects the shutdown option to prevent data loss, execute a shutdown command
         {
             var shutdown = new ProcessStartInfo("shutdown", "/s /t 0");
             shutdown.CreateNoWindow = true;
