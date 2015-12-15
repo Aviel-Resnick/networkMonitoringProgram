@@ -22,7 +22,8 @@ namespace Network_Monitoring_Program
             this.Size = new Size(309, 286);
             InitTimer();
         }
-
+        
+        // Start a windows process (Control.bat)
         public void arp_dump()
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
@@ -162,19 +163,24 @@ namespace Network_Monitoring_Program
                         break;
                     }
                 }
-
+                
+                // If a connected device is not on the list of regestered users alert the user
                 if (intrusion == true)
                 {
+                    // Create a large label with red letters to spell Intrusion Detected
                     label2.Left = 51;
                     label2.ForeColor = System.Drawing.Color.Red;
                     label2.Text = "Intrusion detected";
-
+                    
+                    //Expand the window size, as well as give the user the option to add the "intruder" to regestered users
+                    // Or shutdown to prevent data loss.
                     this.Size = new Size(309, 340);
                     Intrusion_Info.Visible = true;
                     Intruder_Mac.Visible = true;
                     Add_To_Regestered.Visible = true;
                     Shutdown.Visible = true;
-
+                    
+                    // SHow the user the MAC address of the "intruder"
                     Intruder_Mac.Text = CONNECTED_MAC;
 
                     break;
@@ -197,9 +203,8 @@ namespace Network_Monitoring_Program
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            //Empty
         }
-
         private void Submit_Button_Click(object sender, EventArgs e)
         {
             string New_User = New_User_TextBox.Text;
@@ -209,7 +214,6 @@ namespace Network_Monitoring_Program
                 System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt", string.Format("{0}{1}", New_User, Environment.NewLine));
                 ALLOWED_MACS_LIST.Items.Add(New_User);
             }
-            
         }
 
         private void History_Button_Click(object sender, EventArgs e)
