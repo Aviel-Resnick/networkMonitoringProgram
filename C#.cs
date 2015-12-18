@@ -22,7 +22,6 @@ namespace Network_Monitoring_Program
             this.Size = new Size(309, 286);
             InitTimer();
         }
-        
         // Start a windows process (Control.bat)
         public void arp_dump()
         {
@@ -79,7 +78,6 @@ namespace Network_Monitoring_Program
             }
             
             System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
-
         }
 
         public void InitTimer()
