@@ -1,10 +1,7 @@
 # Network_Monitoring_Program
 My 2015-2016 PJAS Project
 
-A network (WI-FI) automatically indexes connected users based on there connection order. For example the IP of the router (first index)
-is 192.168.1.1, the next person who connects will have 192.168.1.2, etc. On the other hand, MAC address never change, and can be used to 
-identify devices. A substring of a string is another string that occurs "in" . For example, "the best of" is a substring of 
-"It was the best of times". An Address Resoulution Protocol scan takes an IP Address as input, and returns an ARP Table like the one 
+A network (WI-FI) automatically indexes connected users based on there connection order. For example the IP of the router (first index) is 192.168.1.1, the next person who connects will have 192.168.1.2, etc. On the other hand, MAC address never change, and can be used to identify devices. A substring of a string is another string that occurs "in" . For example, "the best of" is a substring of "It was the best of times". An Address Resoulution Protocol scan takes an IP Address as input, and returns an ARP Table like the one 
 below as output -
 
 Internet Address	Physical address	Type
