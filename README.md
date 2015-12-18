@@ -30,7 +30,7 @@ Interface: 192.168.1.3 --- 0x8
 No ARP Entries Found.
 
 Next a C# Program uses substrings to detect the lines with MAC Addresses, and pull out the MACS.
-It produces an output like -
+It produces an output like the one below -
 
 00-7f-28-45-33-8e
 00-24-d7-9d-aa-8c
