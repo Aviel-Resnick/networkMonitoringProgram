@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +33,8 @@ namespace Network_Monitoring_Program
             process.StartInfo = startInfo;
             process.Start();
         }
-
+        
+        // Timestamp for the history option
         public static String GetTimestamp(DateTime value)
         {
             return value.ToString("MM/dd/yyyy HH:mm.ss");
@@ -216,7 +217,8 @@ namespace Network_Monitoring_Program
                 ALLOWED_MACS_LIST.Items.Add(New_User);
             }
         }
-
+        
+        // When the user clicks the history button open the history text file
         private void History_Button_Click(object sender, EventArgs e)
         {
             Process.Start("notepad.exe", "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Data\\Refined\\History.txt");
