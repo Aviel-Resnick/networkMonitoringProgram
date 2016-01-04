@@ -1,18 +1,23 @@
 # Network_Monitoring_Program
 My 2015-2016 PJAS Project
 
-A network (WI-FI) automatically indexes connected users based on there connection order. For example the IP of the router (first index) is 192.168.1.1, the next person who connects will have 192.168.1.2, etc. On the other hand, MAC address never change, and can be used to identify devices. A substring of a string is another string that occurs "in" . For example, "the best of" is a substring of "It was the best of times". An Address Resoulution Protocol scan takes an IP Address as input, and returns an ARP Table like the one 
-below as output -
+##Definitions:
+* A network (WI-FI) automatically indexes connected users based on there connection order. For example the IP of the router (first index) is 192.168.1.1, the next person who connects will have 192.168.1.2, etc. 
+* MAC address never change, and can be used to identify devices. 
+* A substring is a part of a string. For example, "the best of" is a substring of "It was the best of times". 
+* An Address Resoulution Protocol scan takes an IP Address as input, and returns an ARP Table including things like IP, MAC, and connection type.
 
-Internet Address	Physical address	Type
-   192.168.5	    00-50-04-62-F7-23	static
+In order to detect unregestered network intrusions, you need raw network data. At first I used a network mapper, but the sc  an took too long, and I switched to ARP.
+The first step is a Batchfile, which scans the first 20 indexes (with ARP) and returns an output similar to the one below -
 
-For my PJAS project, I created a system which can detect unregestered network intrusions. 
-The first step is a Batchfile, which scans the first 20 indexes (with ARP) and returns a similar output -
+<br />
 
-Interface: 192.168.1.3 --- 0x8
-  Internet Address      Physical Address      Type
-  192.168.1.1           00-7f-28-45-33-8e     dynamic   
+#####Interface: 192.168.1.3 --- 0x8 
+
+Internet Address | Physical Address | Type
+---------------- | -----------------|----- 
+192.168.1.1 | 00-7f-28-45-33-8e | dynamic   
+
 No ARP Entries Found.
 No ARP Entries Found.
 No ARP Entries Found.
