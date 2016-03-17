@@ -28,7 +28,7 @@ namespace Network_Monitoring_Program
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Control.bat";
+            startInfo.FileName = "C:\\Users\\" + Environment.UserName + "\\Desktop\\PJAS\\Control.bat";
             process.StartInfo = startInfo;
             process.Start();
         }
@@ -42,16 +42,16 @@ namespace Network_Monitoring_Program
         public void substring_split()
         {
             // Data Collection
-            int LINES = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\arp_dump.txt").Count() - 1;
-            string[] DATA_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\arp_dump.txt");
+            int LINES = System.IO.File.ReadAllLines(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\arp_dump.txt").Count() - 1;
+            string[] DATA_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\arp_dump.txt");
             
             // Clears the exisiting file
-            System.IO.File.WriteAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Empty);
+            System.IO.File.WriteAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\MACS.txt", string.Empty);
             
             // Timestamp for History
             String timestamp = GetTimestamp(DateTime.Now);
-            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", timestamp);
-            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
+            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\History.txt", timestamp);
+            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
             
             // For every line in arp_dump.txt
             for (int i = 0; i < LINES; i++)
@@ -71,13 +71,13 @@ namespace Network_Monitoring_Program
                     {
                         string MAC = LINE.Substring(24, 17);
                         // Append the MAC address to MACS.txt and History.txt
-                        System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
-                        System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
+                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\MACS.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
+                        System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", MAC, Environment.NewLine));
                     }
                 }
             }
             
-            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
+            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\History.txt", string.Format("{0}{1}", "", Environment.NewLine));
         }
 
         public void InitTimer()
@@ -123,10 +123,10 @@ namespace Network_Monitoring_Program
         public void Main()
         {
             // Read lines from MACS.txt (a refined list of connected users) and Allowed_Users.txt (Self-Explanatory) and store them in arrays 
-            int CONNECTED_MAC_COUNT = System.IO.File.ReadLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt").Count();
-            int ALLOWED_MAC_COUNT = System.IO.File.ReadLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt").Count();
-            string[] MACS_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Refined\MACS.txt");
-            string[] ALLOWED_MACS_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt");
+            int CONNECTED_MAC_COUNT = System.IO.File.ReadLines(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\MACS.txt").Count();
+            int ALLOWED_MAC_COUNT = System.IO.File.ReadLines(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Allowed_Users.txt").Count();
+            string[] MACS_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Refined\MACS.txt");
+            string[] ALLOWED_MACS_ARRAY = System.IO.File.ReadAllLines(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Allowed_Users.txt");
             
             // Read each line of MACS_ARRAY and add each item to MACS_LIST (dropdown menu)
             for (int i = 0; i < CONNECTED_MAC_COUNT; i++)
@@ -211,7 +211,7 @@ namespace Network_Monitoring_Program
             // Add a user to regestered users, as well as the dropdown menu, if the MAC in the input field is not already on the list
             if (!ALLOWED_MACS_LIST.Items.Contains(New_User))
             {
-                System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt", string.Format("{0}{1}", New_User, Environment.NewLine));
+                System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Allowed_Users.txt", string.Format("{0}{1}", New_User, Environment.NewLine));
                 ALLOWED_MACS_LIST.Items.Add(New_User);
             }
         }
@@ -219,7 +219,7 @@ namespace Network_Monitoring_Program
         // When the user clicks the history button open the history text file
         private void History_Button_Click(object sender, EventArgs e)
         {
-            Process.Start("notepad.exe", "C:\\Users\\Aviel Resnick\\Desktop\\PJAS\\Data\\Refined\\History.txt");
+            Process.Start("notepad.exe", "C:\\Users\\" + Environment.UserName + "\\Desktop\\PJAS\\Data\\Refined\\History.txt");
         }
         
         // If the user selects to add the possible intruder to the regestered users list, proccede similarly to adding a new user
@@ -227,7 +227,7 @@ namespace Network_Monitoring_Program
         {
             string CONNECTED_MAC = Intruder_Mac.Text;
 
-            System.IO.File.AppendAllText(@"C:\Users\Aviel Resnick\Desktop\PJAS\Data\Allowed_Users.txt", string.Format("{0}{1}", CONNECTED_MAC, Environment.NewLine));
+            System.IO.File.AppendAllText(@"C:\Users\" + Environment.UserName + "\Desktop\PJAS\Data\Allowed_Users.txt", string.Format("{0}{1}", CONNECTED_MAC, Environment.NewLine));
             ALLOWED_MACS_LIST.Items.Add(CONNECTED_MAC);
         }
 
