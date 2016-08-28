@@ -7,7 +7,7 @@ My 2015-2016 PJAS Project
 * A substring is a part of a string. For example, "the best of" is a substring of "It was the best of times". 
 * An Address Resoulution Protocol scan takes an IP Address as input, and returns an ARP Table including things like IP, MAC, and connection type.
 
-In order to detect unregestered network intrusions, you need raw network data. At first I used a network mapper, but the sc  an took too long, and I switched to ARP.
+In order to detect unregistered network intrusions, you need raw network data. At first I used a network mapper, but the sc  an took too long, and I switched to ARP.
 The first step is a Batchfile, which scans the first 20 indexes (with ARP) and returns an output similar to the one below -
 
 <br />
